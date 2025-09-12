@@ -2,6 +2,7 @@ import cors from "cors"
 import express from "express";
 import type { Application, Request, Response } from "express";
 import { envVars } from "./app/config/env";
+import { UserRouter } from "./app/modules/user/user.routes";
 
 const app: Application = express();
 
@@ -16,6 +17,7 @@ app.use(
   })
 );
 
+app.use('/api/v1/user', UserRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
