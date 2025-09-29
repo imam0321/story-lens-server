@@ -16,7 +16,13 @@ const createPost = catchAsync(async (req: Request, res: Response, next: NextFunc
 
 const getAllPosts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await PostService.getAllPosts();
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const search = (req.query.search as string) || ""
+    const isFeatured = req.query.isFeatured ? req.query.isFeatured === "true" : undefined
+    const tags = req.query.tags ? (req.query.tags as string).split(",") : []
+
+    const result = await PostService.getAllPosts({ page, limit, search, isFeatured, tags });
 
     sendResponse(res, {
       statusCode: 201,
