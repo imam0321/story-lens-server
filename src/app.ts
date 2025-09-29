@@ -2,9 +2,9 @@ import cors from "cors"
 import express from "express";
 import type { Application, Request, Response } from "express";
 import { envVars } from "./app/config/env";
-import { UserRouter } from "./app/modules/user/user.routes";
 import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
+import { router } from "./app/routes";
 
 const app: Application = express();
 
@@ -19,7 +19,7 @@ app.use(
   })
 );
 
-app.use('/api/v1/user', UserRouter);
+app.use('/api/v1', router);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
