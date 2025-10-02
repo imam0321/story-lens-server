@@ -38,6 +38,9 @@ const getAllPosts = async ({ page, limit, search, isFeatured, tags }: { page: nu
     skip,
     take: limit,
     where,
+    include: {
+      author: true
+    },
     orderBy: {
       createAt: "desc"
     }
